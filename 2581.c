@@ -1,42 +1,34 @@
 #include <stdlib.h> // malloc, atoi, rand
 #include <stdio.h>
 
+int Prime(int n){
+    if(n == 1) return 0;
+    for(int i = 2; i*i <= n; i++){
+        if(n % i == 0){
+            return 0;
+        }
+    }
+    return 1;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 int main()
 {
     //define variable
-    int M, N, sum = 0;
-    
-    int flag = 0;
+    int M, N, sum = 0, min = -1;
     scanf("%d %d", &M, &N);
-    if(M == 1){
-        M = 2;
-    }
-    int min = N;
 
-    for(int i = M; i <= N; i++){
-        flag = 0;
-        for(int j = 2; j < i; j++){
-            if(i % j == 0){
-                flag = 1;
-            }
-        }
-        if(flag == 0){
-            printf("%d\n", i);
+    for(int i = N; i >= M; i--){
+        if(Prime(i) == 1){
             sum += i;
-            if(min > i){
-                min = i;
-            }
+            min = i;
         }
     }
 
-    if(sum == 0){
-        sum = -1;
+    if(min == -1){
+        printf("%d", -1);
+    }else{
+        printf("%d\n%d", sum, min);
     }
-    printf("%d\n", sum);
-    if(sum != -1){
-        printf("%d", min);
-    }
-    
     return 0;
 }
